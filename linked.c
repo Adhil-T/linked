@@ -7,18 +7,6 @@ struct Node {
     struct Node* next;
 };
 
-// Function to initialize a new linked list with a single node
-struct Node* initializeList(int data) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    if (newNode == NULL) {
-        printf("Memory allocation failed.\n");
-        exit(1);
-    }
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
-}
-
 // Function to insert a new node at the end of the linked list
 void insertAtEnd(struct Node** head, int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
@@ -48,6 +36,10 @@ void insertAtEnd(struct Node** head, int data) {
 // Function to print all elements of the linked list
 void printList(struct Node* head) {
     struct Node* temp = head;
+    if (temp == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
     while (temp != NULL) {
         printf("%d -> ", temp->data);
         temp = temp->next;
@@ -56,20 +48,18 @@ void printList(struct Node* head) {
 }
 
 int main() {
-    struct Node* head = NULL; // Start with an empty list
+    // The head pointer is declared and initialized to NULL to represent an empty list
+    struct Node* head = NULL; 
 
-    // Initialize the list with the first node
-    head = initializeList(10);
-    printf("List after initialization: ");
-    printList(head);
-
-    // Insert more elements at the end
+    // Insert elements into the initially empty list
+    printf("Inserting elements into the list...\n");
+    insertAtEnd(&head, 10);
     insertAtEnd(&head, 20);
     insertAtEnd(&head, 30);
     insertAtEnd(&head, 40);
 
-    // Print the final list
-    printf("List after insertions: ");
+    // Display the list
+    printf("The linked list is: ");
     printList(head);
 
     // Free the allocated memory to prevent memory leaks
